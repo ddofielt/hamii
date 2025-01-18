@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이제누가공지해주나I</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* 채팅창 화면 전체 설정 */
+        .chat-container {
+            height: 800px;
+            background-color: #f5fbff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 공지방 헤더 설정 */
+        .chat-header {
+            height: 50px;
+            background-color: #e3e7fa;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .chat-header i {
+            margin-right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* 메세지 박스 설정 */
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #eceffc;
+        }
+
+        /* 메세지 전체적인 설정 */
+        .chat-message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* 프사 동그랗게 만드는 설정 */
+        .chat-message .profile-picture {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 10px;
+        }
+
+        /* 채팅 내용 설정 */
+        .chat-message .message-content {
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message .sender-name {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .chat-message span {
+            max-width: 70%;
+            word-wrap: break-word;
+            padding: 8px 12px;
+            border-radius: 3px;
+        }
+
+        /* 사용자가 보내는 채팅 */
+        .message-sent {
+            flex-direction: row-reverse;
+        }
+
+        .message-sent .profile-picture {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        .message-sent span {
+            background-color: #fffbd8;
+            align-self: flex-end;
+        }
+
+        /* 받는 채팅 설정 */
+        .message-received span {
+            background-color: white;
+        }
+
+        /* 채팅 보내는 창 설정 */
+        .chat-footer {
+            height: 50px;
+            background-color: #f7f7f7;
+            border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .chat-footer input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .chat-footer button {
+            margin-left: 10px;
+            background-color: #a2b2f8;
+            color: #6d6d6d;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .chat-footer button:hover {
+            background-color: #b2c4eb;
+            color: #6d6d6d;
+        }
+
+        .system-message {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            background-color: #e3e7fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .system-message .invite-link {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <i>&#8592;</i>
+            마케팅 전략기획팀 공지방 6
+        </div>
+        <div class="chat-messages" id="chat-messages">
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="message-input" placeholder="메세지를 입력하세요.">
+            <button id="send-button">전송</button>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            { type: 'received', text: '여러분 단체방에 죄송하지만 글 하나만 젇겠습니다', sender: '김유현 대리님' },
+            { type: 'received', text: '안녕유빈아너를처음본순간부터좋아했어퇴사전에고백하고싶었는데바보같이그땐용기가없더라지금은이수많은사람들앞에서오로지너만사랑한다고말하고싶어서큰마음먹고용기내어봐매일매일지하철에서볼때마다두근댔고회의하고외근나갈때도너만보이고너생각만나고지난3월부터계속그랬어니가김썸니아랑헤어지고니맘이아파울때내마음도너무아팠지만내심좋은맘두있었어이런내맘을어떻게말할지고민하다가정말인생에서제일크게용기내어세상에서제일멋지게많은사람들앞에서너한테고백해주고싶었어사랑하는유빈님내여자가되줄래?아니나만의태양이되어줄래?난너의달님이될게🌛 내일5시반에회사마치고로비앞에서기다리고잇을게너를사랑하는유현이가😍😝', sender: '김유현 대리님' },
+            { type: 'system', text: '이유빈 대리님 님이 퇴장했습니다.\n채팅방으로 초대하기' },
+            { type: 'received', text: '이제 누가 공지해주냐', sender: '김보라 팀장님' }
+        ];
+
+        const chatMessages = document.getElementById('chat-messages');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        function displayMessages() {
+            chatMessages.innerHTML = ''; // 기존 메시지 초기화
+            messages.forEach(msg => {
+                if (msg.type === 'system') {
+                    const systemMessage = document.createElement('div');
+                    systemMessage.classList.add('system-message');
+
+                    const [firstLine, secondLine] = msg.text.split('\n');
+                    const line1 = document.createElement('div');
+                    line1.textContent = firstLine;
+
+                    const line2 = document.createElement('div');
+                    const inviteLink = document.createElement('span');
+                    inviteLink.textContent = secondLine;
+                    inviteLink.classList.add('invite-link');
+
+                    line2.appendChild(inviteLink);
+
+                    systemMessage.appendChild(line1);
+                    systemMessage.appendChild(line2);
+                    chatMessages.appendChild(systemMessage);
+                } else {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('chat-message', msg.type === 'sent' ? 'message-sent' : 'message-received');
+
+                    const profilePicture = document.createElement('div');
+                    profilePicture.classList.add('profile-picture');
+
+                    const messageContent = document.createElement('div');
+                    messageContent.classList.add('message-content');
+
+                    const senderName = document.createElement('div');
+                    senderName.classList.add('sender-name');
+                    senderName.textContent = msg.sender;
+
+                    const messageText = document.createElement('span');
+                    messageText.textContent = msg.text;
+
+                    messageContent.appendChild(senderName);
+                    messageContent.appendChild(messageText);
+
+                    messageDiv.appendChild(profilePicture);
+                    messageDiv.appendChild(messageContent);
+
+                    chatMessages.appendChild(messageDiv);
+                }
+            });
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addMessage(text) {
+            if (text.trim() !== '') {
+                messages.push({ type: 'sent', text: text, sender: '썸냐' });
+                displayMessages();
+                messageInput.value = '';
+            }
+        }
+
+        sendButton.addEventListener('click', () => {
+            addMessage(messageInput.value);
+        });
+
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                addMessage(messageInput.value);
+            }
+        });
+
+        displayMessages();
+    </script>
+</body>
+
+</html>
