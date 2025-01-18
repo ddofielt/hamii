@@ -12,9 +12,10 @@
             background-color: #f0f0f0;
         }
 
+        /* 채팅창 화면 전체 설정 */
         .chat-container {
             height: 800px;
-            background-color: #96bad0;
+            background-color: #f5fbff;
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -22,6 +23,7 @@
             flex-direction: column;
         }
 
+        /* 공지방 헤더 설정 */
         .chat-header {
             height: 50px;
             background-color: #e3e7fa;
@@ -40,6 +42,7 @@
             cursor: pointer;
         }
 
+        /* 메세지 박스 설정 */
         .chat-messages {
             flex: 1;
             padding: 10px;
@@ -47,21 +50,24 @@
             background-color: #eceffc;
         }
 
+        /* 메세지 전체적인 설정 */
         .chat-message {
             margin-bottom: 15px;
             display: flex;
             align-items: flex-start;
         }
 
+        /* 프사 동그랗게 만드는 설정 */
         .chat-message .profile-picture {
             flex-shrink: 0;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #ad1515;
+            background-color: #ddd;
             margin-right: 10px;
         }
 
+        /* 채팅 내용 설정 */
         .chat-message .message-content {
             font-size: 13px;
             display: flex;
@@ -81,6 +87,7 @@
             border-radius: 3px;
         }
 
+        /* 사용자가 보내는 채팅 */
         .message-sent {
             flex-direction: row-reverse;
         }
@@ -91,14 +98,16 @@
         }
 
         .message-sent span {
-            background-color: #fffcce;
+            background-color: #fffbd8;
             align-self: flex-end;
         }
 
+        /* 받는 채팅 설정 */
         .message-received span {
             background-color: white;
         }
 
+        /* 채팅 보내는 창 설정 */
         .chat-footer {
             height: 50px;
             background-color: #f7f7f7;
@@ -129,7 +138,7 @@
         }
 
         .chat-footer button:hover {
-            background-color: #d2fdd9;
+            background-color: #b2c4eb;
             color: #6d6d6d;
         }
 
@@ -154,7 +163,7 @@
     <div class="chat-container">
         <div class="chat-header">
             <i>&#8592;</i>
-            마케팅 전략기획팀 공지방 68
+            마케팅 전략기획팀 공지방 6
         </div>
         <div class="chat-messages" id="chat-messages">
         </div>
@@ -166,26 +175,15 @@
 
     <script>
         const messages = [
-            { type: 'received', text: '여러분 단체방에 죄송하지만 글 하나만 적겠습니다.', sender: '김유현 대리님' },
+            { type: 'received', text: '여러분 단체방에 죄송하지만 글 하나만 젇겠습니다', sender: '김유현 대리님' },
             { type: 'received', text: '안녕유빈아너를처음본순간부터좋아했어퇴사전에고백하고싶었는데바보같이그땐용기가없더라지금은이수많은사람들앞에서오로지너만사랑한다고말하고싶어서큰마음먹고용기내어봐매일매일지하철에서볼때마다두근댔고회의하고외근나갈때도너만보이고너생각만나고지난3월부터계속그랬어니가김썸니아랑헤어지고니맘이아파울때내마음도너무아팠지만내심좋은맘두있었어이런내맘을어떻게말할지고민하다가정말인생에서제일크게용기내어세상에서제일멋지게많은사람들앞에서너한테고백해주고싶었어사랑하는유빈님내여자가되줄래?아니나만의태양이되어줄래?난너의달님이될게🌛 내일5시반에회사마치고로비앞에서기다리고잇을게너를사랑하는유현이가😍😝', sender: '김유현 대리님' },
             { type: 'system', text: '이유빈 대리님 님이 퇴장했습니다.\n채팅방으로 초대하기' },
-            { type: 'received', text: '이제 누가 공지해주냐', sender: '김보라 과장님' }
+            { type: 'received', text: '이제 누가 공지해주냐', sender: '김보라 팀장님' }
         ];
 
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
-
-        function getProfileColor(sender) {
-            switch (sender) {
-                case '김유현 대리님':
-                    return '#cdffd5';
-                case '김보라 과장님':
-                    return 'pink';
-                default:
-                    return 'white';
-            }
-        }
 
         function displayMessages() {
             chatMessages.innerHTML = ''; // 기존 메시지 초기화
@@ -214,7 +212,6 @@
 
                     const profilePicture = document.createElement('div');
                     profilePicture.classList.add('profile-picture');
-                    profilePicture.style.backgroundColor = getProfileColor(msg.sender);
 
                     const messageContent = document.createElement('div');
                     messageContent.classList.add('message-content');
